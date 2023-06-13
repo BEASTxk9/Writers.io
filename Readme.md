@@ -22,9 +22,10 @@
 ## THE PLUGINS & THEMES I USE WITH THIS PLUGIN ARE...
 
 * THEMES:
-- Blocksy
+- Blocksy(adds move edit functionality to the website)
 
 * PLUGINS
-- Title Remover
-- Elementor
-- Optimole
+- Title Remover(removes annoying page titles)
+- Elementor(wp editor)
+- Optimole(makes images load faster)
+- Ultimate memeber(login & register) !important you need this plugin
