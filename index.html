@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="row justify-content-center text-center">
+
+        <!-- button and form -->
+        <div class="col-sm-4">
+
+<button id="generateButton" class="btn">START</button>
+
+     <!-- timer -->
+                <div class="row justify-content-center text-center">
+                    <div class="col-sm-8" id="timer" style="display: none;">
+                        <h4> TIME REMAINING: <span id="time"></span> </h4>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+
+                <!-- topic -->
+                <div class="col-sm-8" id="topic" style="display: none;">
+                    <h4></h4>
+                </div>
+                <!-- describe -->
+                <div class="col-sm-8" id="t_description" style="display: none;">
+                    <h4></h4>
+                </div>
+             
+
+                </div>
+        
+
+        </div>
+        <!-- answer -->
+        <div class="col-sm-4" id="answer" style="display: none;">
+            <!-- OFFCANVAS BTN -->
+            <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">ANSWERS</button>
+        </div>
+
+        </div>
+    </div>
+
+
+<!-- OFFCANVAS CONTENT -->
+<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasScrollingLabel">INSERT ANSWERS HERE</h5>
+    <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-5">
+
+    <form method="POST" action="">
+        <!-- groupname -->
+        <label for="groupname">GROUPNAME</label><br>
+        <input type="text" id="groupname" name="groupname"><br>
+        <!-- participants -->
+        <label for="participants">Participants</label><br>
+        <input type="text" id="participants" name="participants"><br>
+        <!-- answer_text -->
+        <label for="answer_text">answer</label><br>
+        <input type="text" id="answer_text" name="answer_text"><br>
+        <!-- submit -->
+        <input class="submit-btn px-5 my-2" type="submit" name="submit" value="Add Details">
+    </form>
+
+  </div>
+</div>
+
+
+
+
+</body>
+</html>

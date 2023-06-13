@@ -1,0 +1,2 @@
+1. create a add picture thing so students can add there work as a picture file
+2. categories answers by date and display them
