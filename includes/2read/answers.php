@@ -33,6 +33,7 @@ $output = '
 
 
 $output .='
+<section id="answers-section">
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -40,11 +41,13 @@ $output .='
             <table class="table-bordered table table-responsive w-100 d-block d-md-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>GROUPNAME</th>
-                        <th>PARTICIPANTS</th>
-                        <th>ANSWERS</th>
-                        <th>OPERATORS</th>
+                        <th id="th-id">ID</th>
+                        <th id="th-groupname">GROUPNAME</th>
+                        <th id="th-participants">PARTICIPANTS</th>
+                        <th id="th-answer_text">ANSWERS</th>
+                        <th id="th-user_id">USERID</th>
+                        <th id="th-user_name">USERNAME</th>
+                        <th id="th-operators">OPERATORS</th>
                     </tr>
                 </thead>
 
@@ -54,11 +57,13 @@ $output .='
 // fetch and display data from wpdb
 foreach ($answers as $i) {
     $output .= '<tr>';
-    $output .= '<td>' . $i->id . '</td>';
-    $output .= '<td>' . $i->groupname . '</td>';
-    $output .= '<td>' . $i->participants . '</td>';
-    $output .= '<td>' . $i->answer_text . '</td>';
-    $output .= '<td>
+    $output .= '<td id="td-id">' . $i->id . '</td>';
+    $output .= '<td id="td-groupname">' . $i->groupname . '</td>';
+    $output .= '<td id="td-participants">' . $i->participants . '</td>';
+    $output .= '<td id="td-answer_text">' . $i->answer_text . '</td>';
+    $output .= '<td id="td-user_id">' . $i->user_id . '</td>';
+    $output .= '<td id="td-user_name">' . $i->user_name . '</td>';
+    $output .= '<td id="td-operators">
     <!-- DELETE BUTTON -->
     <a href="' . admin_url('./4delete/delete.php?page=wp_answers&action=delete(answers)&id=' . $i->id) . '" class="button-delete btn">Delete</a>
     </td>';
@@ -72,6 +77,7 @@ $output .='
 </div>
 </div>
 </div>
+</section>
 ';
 
 

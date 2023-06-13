@@ -1,6 +1,7 @@
 <?php
 // register shortcode
 add_shortcode('random-card', 'random_card');
+
 // create function
 function random_card()
 {
@@ -22,23 +23,33 @@ function random_card()
         $groupname = $_POST['groupname'];
         $participants = $_POST['participants'];
         $answer_text = $_POST['answer_text'];
+            // Retrieve the current user information
+    $current_user = wp_get_current_user();
+    $user_id = $current_user->ID;
+    $user_name = $current_user->display_name;
+
  
         // mysql add query
-        $sql = "INSERT INTO $table_name (groupname, participants, answer_text) 
-        values('$groupname', '$participants', '$answer_text')";
+        $sql = "INSERT INTO $table_name (groupname, participants, answer_text, user_id, user_name) 
+        VALUES ('$groupname', '$participants', '$answer_text', '$user_id', '$user_name')";
+
 
         $result = $wpdb->query($sql);
         
-        // if successful redirect
-        if ($result) {
-            echo "Data added successfully";
-            wp_redirect(site_url() . '/results/');
-            exit;           
-        } 
-        // else do this
-        else {
-            die($wpdb->last_error);
-        }
+// if successful redirect
+if ($result) {
+    $redirect_url = site_url('/results/');
+    ?>
+    <script>
+        window.location.href = "<?php echo $redirect_url; ?>";
+    </script>
+    <?php
+    exit;
+} else {
+    wp_die($wpdb->last_error);
+}
+
+
     }
 
 
@@ -53,183 +64,79 @@ function random_card()
     ';
 
     $output .= '
+    <section id="randomgenerator-section">
     <div class="container">
-    <div class="row justify-content-center text-center">
+        <div class="row justify-content-center text-center">
 
-    <!-- button and form -->
-    <div class="col-sm-12">
-
-<button id="generateButton" class="btn">START</button>
-
- <!-- timer -->
-            <div class="row justify-content-center text-center">
-                <div class="col-sm-8" id="timer" style="display: none;">
-                    <h4> TIME REMAINING: <span id="time"></span> </h4>
+            <!-- button and form -->
+            <div class="col-sm-12">
+                <button id="generateButton" class="btn">START</button>
+                <!-- timer -->
+                <div class="row justify-content-center text-center">
+                    <div class="col-sm-8" id="timer" style="display: none;">
+                        <h4> TIME REMAINING: <span id="time"></span> </h4>
+                    </div>
+                </div>
+                <div class="row justify-content-center text-center">
+                    <!-- topic -->
+                    <div class="col-sm-8" id="topic" style="display: block;">
+                        <h4></h4>
+                    </div>
+                    <!-- describe -->
+                    <div class="col-sm-8" id="t_description" style="display: block;">
+                        <h4></h4>
+                    </div>
+                    <!-- answer -->
+                    <!-- OFFCANVAS BTN -->
+                    <div class="col-sm-8" id="answer" style="display: none;" type="button"
+                        data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                        aria-controls="offcanvasScrolling">
+                        <h4>CLICK HERE TO WRITE/SUBMIT ANSWERS</h4>
+                    </div>
                 </div>
             </div>
-            <div class="row justify-content-center text-center">
 
-            <!-- topic -->
-            <div class="col-sm-8" id="topic" style="display: none;">
-                <h4></h4>
-            </div>
-            <!-- describe -->
-            <div class="col-sm-8" id="t_description" style="display: none;">
-                <h4></h4>
-            </div>
-         
-            <!-- answer --> <!-- OFFCANVAS BTN -->
-            <div class="col-sm-8" id="answer" style="display: none;" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
-    <h4>CLICK HERE TO WRITE/SUBMIT ANSWERS</h4>
-            </div>
-
-            </div>
+        </div>
     </div>
-
-    </div>
-</div>
+</section>
     ';
 
 
     $output .= '
     <!-- OFFCANVAS CONTENT -->
-<div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
-  <div class="offcanvas-header">
-    <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Answers</h3>
-    <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
+    <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+        id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+        <div class="offcanvas-header">
+            <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Answers</h3>
+            <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <form method="POST" action="">
+                <div class="answers-body">
+                    <p>Welcome, the form below allows you to take notes which is then displayed after the 10 min timer
+                        is up or if the user clicks submit...<br>
+                        **TIPS**<br>
+                        - If you click enter it will submit your answers<br>
+                        - If you want to make a space in your notes then click <b>" ctrl " & " shift "</b><br>
+                    </p>
 
-    <form method="POST" action="">
-    <div class="answers-body">
-    <p>Welcome, the form below allows you to take notes which is then displayed after the 10 min timer is up or if the user clicks submit...<br>
-    **TIPS**<br>
-    - If you click enter it will submit your answers<br>
-    - If you want to make a space in your notes then click <b>" ctrl " & " shift "</b><br>
-    </p>
+                    <!-- groupname -->
+                    <input type="text" id="groupname" name="groupname" placeholder="Enter Group Name here..."
+                        required><br>
+                    <!-- participants -->
+                    <textarea type="text" id="participants" name="participants" placeholder="Enter Participants here..."
+                        required></textarea>
+                    <!-- answer_text -->
+                    <textarea type="text" id="answer_text" name="answer_text" placeholder="Enter answers here..."
+                        required></textarea>
+                </div>
 
-           <!-- groupname -->
-        <input type="text" id="groupname" name="groupname" placeholder="Enter Group Name here..." required><br>
-        <!-- participants -->
-        <textarea type="text" id="participants" name="participants" placeholder="Enter Participants here..." required></textarea>
-        <!-- answer_text -->
-        <textarea type="text" id="answer_text" name="answer_text" placeholder="Enter answers here..." required></textarea>
+                <!-- submit -->
+                <input class="submit-btn px-5 my-2" type="submit" name="submit" value="SUBMIT">
+            </form>
+        </div>
     </div>
- 
-        <!-- submit -->
-        <input class="submit-btn px-5 my-2" type="submit" name="submit" value="SUBMIT">
-    </form>
-
-  </div>
-</div>
-
-    ';
-
-    // custom CSS
-    $output .= '
-    <style scoped>
-    #topic, #t_description {
-        margin-left: 10px;
-        margin-right: 10px;
-        margin-top: 2vh;
-        background-color: grey;
-        color: black;
-        padding: 30px; 
-        width: fit-content;
-        width: 100%;
-        font-family: raleway, roboto mono;
-    }
-
-    #generateButton{
-       background-color: grey;
-       color: black;
-    }
-
-    #timer{
-        font-weight: bold;
-        margin-top: 1vh;
-        background-color: grey;
-        color: black;  
-        padding: 30px;  
-        width: fit-content;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
-        width: 100%;
-        font-family: raleway, roboto mono;
-    }
-
-    #answer{
-        margin-top: 2vh;
-        width: 100%;
-        padding: 30px;
-        margin: none;
-        outline: none !important;
-        border: none !important;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;  
-        background-color: grey;
-        color: black;
-   
-    }
-    #answer:hover{
-        background-color: grey;
-        color: black;
-        transition: all 0.3s ease-in-out;
-    }
-
-  
-
-    .offcanvas{
-        font-family: raleway, roboto mono;
-        background-color: grey;
-        box-shadow: black 5px 5px 10px;
-    }
-
-.offcanvas-header{
-    background-color: #171717;
-    color: grey;
-}
-
-.offcanvas-title{
-    padding-top: 2vh;
-}
-
-.answers-body{
-    min-height: 74vh;
-}
-
-input, textarea{
-    width: 100%;
-    margin-top: 10px !important;
-    margin-bottom: 10px !important;
-    padding: 15px !important;
-    background-color: #171717 !important;
-    color: grey !important;
-    border: none !important;
-}
-::placeholder, input::placeholder{
-    color: grey !important;
-}
-
-#groupname{
-    border-top-right-radius: 10px;
-    border-top-left-radius: 10px;  
-}
-#answer_text{
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;  
-}
-
-.submit-btn{
-width: 100%;
-background-color: #171717;
-color: grey;
-font-weight: bold;
-border: none;
-border-radius: 10px;
-padding: 10px;
-}
-    </style>
     ';
 
     // JavaScript code
@@ -311,8 +218,9 @@ function generate_random_items()
 {
     // Connect to the database
     global $wpdb;
+    // check connection
     if (is_null($wpdb)) {
-        $wpdb = new wpdb(DB_USER, DB_PASSWORD, DB_NAME, DB_HOST);
+        $wpdb->show_errors();
     }
 
     // Set the table name
@@ -334,5 +242,3 @@ function generate_random_items()
     // Return the response as JSON
     wp_send_json($response);
 }
-
-?>

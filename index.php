@@ -1,13 +1,13 @@
 <?php
 /**
- * ITT GAME
+ * Writers.io
  *
- * @package   ITT GAME
+ * @package   Writers.io
  * @author    Shane Stevens.
  * @copyright Stellenbosch Business School | @2023
  *
  * @wordpress-plugin 
- * Plugin Name:ITT GAME
+ * Plugin Name: Writers.io
  * Description: This is a game...idk what else to add here :)
  * Version: 1.0
  * Author: Shane Stevens.
@@ -38,43 +38,47 @@ require_once plugin_dir_path(__FILE__) . './includes/4delete/delete.php';
 
 // _________________________________________
 // CREATE DATABASE TABLES ON ACTIVATING PLUGIN
-function create_table_on_activate() {
-	// connect to WordPress database
-	global $wpdb;
+function create_table_on_activate()
+{
+    // connect to WordPress database
+    global $wpdb;
 
-	// set table names
-	$admin = $wpdb->prefix . 'admin'; // The table name is wp_admin
-	$answers = $wpdb->prefix . 'answers'; // The table name is wp_answers
-	$charset_collate = $wpdb->get_charset_collate();
+    // set table names
+    $admin = $wpdb->prefix . 'admin'; // The table name is wp_admin
+    $answers = $wpdb->prefix . 'answers'; // The table name is wp_answers
 
-	// MySQL create tables query
+    $charset_collate = $wpdb->get_charset_collate();
 
-	// admin
-	$sql = "CREATE TABLE $admin (
-		id INT(10) PRIMARY KEY auto_increment,
-		topic VARCHAR(100) NOT NULL,
-		t_description VARCHAR(255) NOT NULL
-	) $charset_collate;";
+    // mysql create tables query
+    $sql = "CREATE TABLE $admin (
+                id INT(10) PRIMARY KEY AUTO_INCREMENT,
+                topic VARCHAR(100) NOT NULL,
+                t_description VARCHAR(255) NOT NULL
+            ) $charset_collate;";
 
-// answers
-	$sql = "CREATE TABLE $answers (
-		id INT(10) PRIMARY KEY auto_increment,
-		groupname VARCHAR(255) NOT NULL,
-		participants VARCHAR(255) NOT NULL,
-		answer_text VARCHAR(255) NOT NULL,
-		files VARCHAR(255) NOT NULL
-	) $charset_collate;";
+$sql .= "CREATE TABLE $answers (
+    id INT(10) PRIMARY KEY AUTO_INCREMENT,
+    groupname VARCHAR(255) NOT NULL,
+    participants VARCHAR(255) NOT NULL,
+    answer_text VARCHAR(255) NOT NULL,
+    files VARCHAR(255) NOT NULL,
+    user_id INT(10) NOT NULL,
+    user_name VARCHAR(255) NOT NULL
+) $charset_collate;";
 
 
-	require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-	$result = dbDelta($sql);
-	// error handling
-	if (is_wp_error($result)) {
-		echo 'There was an error creating the tables';
-		return;
-	}
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    $result = dbDelta($sql);
+    if (is_wp_error($result)) {
+        echo 'There was an error creating the tables';
+        return;
+    }
 }
+
 register_activation_hook(__FILE__, 'create_table_on_activate');
+
+
+
 
 
 

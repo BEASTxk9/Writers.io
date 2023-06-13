@@ -33,6 +33,7 @@ $output = '
 
 
 $output .='
+<section id="admin-section">
 <div class="container">
     <div class="row">
         <div class="col-sm-12">
@@ -41,10 +42,10 @@ $output .='
             <table class="table-bordered table table-responsive w-100 d-block d-md-table">
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>TOPIC</th>
-                        <th>DESCRIPTION</th>
-                        <th>OPERATORS</th>
+                        <th id="th-id">ID</th>
+                        <th id="th-topic">TOPIC</th>
+                        <th id="th-t_description">DESCRIPTION</th>
+                        <th id="th-OPERATORS">OPERATORS</th>
                     </tr>
                 </thead>
 
@@ -54,10 +55,10 @@ $output .='
 // fetch and display data from wpdb
 foreach ($admin as $i) {
     $output .= '<tr>';
-    $output .= '<td>' . $i->id . '</td>';
-    $output .= '<td>' . $i->topic . '</td>';
-    $output .= '<td>' . $i->t_description . '</td>';
-    $output .= '<td>
+    $output .= '<td id="td-id">' . $i->id . '</td>';
+    $output .= '<td id="td-topic">' . $i->topic . '</td>';
+    $output .= '<td id="td-t_description">' . $i->t_description . '</td>';
+    $output .= '<td id="td-OPERATORS">
     <!-- UPDATE BUTTON -->
     <a href="' . '/admin-update/?page=wp_admin&action=admin_update&id=' . $i->id . '" class="button-update btn my-2">Update</a>
     <!-- DELETE BUTTON -->
@@ -73,16 +74,17 @@ $output .='
 </div>
 </div>
 </div>
+</section>
 ';
 
 
-$output .='
-<style>
-.button-add{
-    width: 100%;
-}
-</style>
-';
+// $output .='
+// <style>
+// .button-add{
+//     width: 100%;
+// }
+// </style>
+// ';
 
 
   // ____________________________________________________________________________

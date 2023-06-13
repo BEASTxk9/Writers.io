@@ -30,13 +30,15 @@ function admin_create()
         
         // if successful redirect
         if ($result) {
-            echo "Data added successfully";
-            wp_redirect(site_url() . '/admin/');
-            exit;           
-        } 
-        // else do this
-        else {
-            die($wpdb->last_error);
+            $redirect_url = site_url('/admin/');
+            ?>
+            <script>
+                window.location.href = "<?php echo $redirect_url; ?>";
+            </script>
+            <?php
+            exit;
+        } else {
+            wp_die($wpdb->last_error);
         }
     }
 

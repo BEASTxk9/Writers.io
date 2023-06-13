@@ -17,3 +17,14 @@
 - any file that has a delete function will be found in "4delete" folder
 
 ## ...HOPE THIS HELPS
+
+
+## THE PLUGINS & THEMES I USE WITH THIS PLUGIN ARE...
+
+* THEMES:
+- Blocksy
+
+* PLUGINS
+- Title Remover
+- Elementor
+- Optimole

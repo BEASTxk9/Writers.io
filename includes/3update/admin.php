@@ -33,11 +33,15 @@ function admin_update($id)
         $result = $wpdb->query($sql);
 
         if ($result) {
-            // doesnt work idk why / works idk why
-            wp_redirect(site_url() . '/admin/');
+            $redirect_url = site_url('/admin/');
+            ?>
+            <script>
+                window.location.href = "<?php echo $redirect_url; ?>";
+            </script>
+            <?php
             exit;
         } else {
-            die(mysqli_error($wpdb));
+            wp_die($wpdb->last_error);
         }
 
     }
