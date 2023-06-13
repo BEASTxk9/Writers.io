@@ -69,8 +69,10 @@ if ($result) {
         <div class="row justify-content-center text-center">
 
             <!-- button and form -->
-            <div class="col-sm-12">
-                <button id="generateButton" class="btn">START</button>
+            <div class="col-sm-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+            aria-controls="offcanvasScrolling">
+                <button id="generateButton" class="btn"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling">START</button>
                 <!-- timer -->
                 <div class="row justify-content-center text-center">
                     <div class="col-sm-8" id="timer" style="display: none;">
@@ -91,7 +93,6 @@ if ($result) {
                     <div class="col-sm-8" id="answer" style="display: none;" type="button"
                         data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
                         aria-controls="offcanvasScrolling">
-                        <h4>CLICK HERE TO WRITE/SUBMIT ANSWERS</h4>
                     </div>
                 </div>
             </div>
@@ -108,8 +109,8 @@ if ($result) {
         id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
             <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Answers</h3>
-            <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button>
+          <!--  <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button> -->
         </div>
         <div class="offcanvas-body">
             <form method="POST" action="">
