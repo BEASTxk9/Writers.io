@@ -69,24 +69,36 @@ if ($result) {
         <div class="row justify-content-center text-center">
 
             <!-- button and form -->
-            <div class="col-sm-12" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
-            aria-controls="offcanvasScrolling">
-                <button id="generateButton" class="btn"  data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
-                aria-controls="offcanvasScrolling">START</button>
+            <div class="col-sm-12">
+
+                <div class="item button-parrot" style="--bg-color: #2c3e50">
+                <button id="generateButton" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling"
+                aria-controls="offcanvasScrolling">PLAY GAME
+                  <div class="parrot"></div>
+                  <div class="parrot"></div>
+                  <div class="parrot"></div>
+                  <div class="parrot"></div>
+                  <div class="parrot"></div>
+                  <div class="parrot"></div>
+                </button>
+              </div>
+
                 <!-- timer -->
-                <div class="row justify-content-center text-center">
+                <div class="row justify-content-center text-center" id="generateContent">
                     <div class="col-sm-8" id="timer" style="display: none;">
-                        <h4> TIME REMAINING: <span id="time"></span> </h4>
+                    <!-- CUSTOM FONT -->
+                    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet" type="text/css">
+                        <h2 style="font-family: Orbitron, sans-serif;">TIME REMAINING<br><span id="time"></span> </h2>
                     </div>
                 </div>
                 <div class="row justify-content-center text-center">
                     <!-- topic -->
                     <div class="col-sm-8" id="topic" style="display: block;">
-                        <h4></h4>
+                    
                     </div>
                     <!-- describe -->
                     <div class="col-sm-8" id="t_description" style="display: block;">
-                        <h4></h4>
+                        
                     </div>
                     <!-- answer -->
                     <!-- OFFCANVAS BTN -->
@@ -109,8 +121,8 @@ if ($result) {
         id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
         <div class="offcanvas-header">
             <h3 class="offcanvas-title" id="offcanvasScrollingLabel">Answers</h3>
-          <!--  <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas"
-                aria-label="Close"></button> -->
+           <button type="button" class="btn-close bg-light text-reset" data-bs-dismiss="offcanvas"
+                aria-label="Close" style="display: none;">PLAY GAME</button> 
         </div>
         <div class="offcanvas-body">
             <form method="POST" action="">
@@ -123,8 +135,8 @@ if ($result) {
                     </p>
 
                     <!-- groupname -->
-                    <input type="text" id="groupname" name="groupname" placeholder="Enter Group Name here..."
-                        required><br>
+                        <textarea type="text" id="groupname" name="groupname" placeholder="Enter groupname here..."
+                        required></textarea>
                     <!-- participants -->
                     <textarea type="text" id="participants" name="participants" placeholder="Enter Participants here..."
                         required></textarea>
@@ -134,10 +146,115 @@ if ($result) {
                 </div>
 
                 <!-- submit -->
-                <input class="submit-btn px-5 my-2" type="submit" name="submit" value="SUBMIT">
+                <input id="submit-btn" class="submit-btn px-5 my-2" type="submit" name="submit" value="SUBMIT">
             </form>
         </div>
     </div>
+    ';
+
+    // custom css
+    $output .= '
+    <style scoped>
+    button {
+      background: transparent;
+      color: #fff;
+      border: 3px solid #fff;
+      border-radius: 50px;
+      padding: 0.8rem 2rem;
+      font: 18px "Margarine", sans-serif;
+      outline: none;
+      cursor: pointer;
+      position: relative;
+      transition: 0.2s ease-in-out;
+      letter-spacing: 2px;
+    }
+    
+    .name {
+      width: 100%;
+      text-align: center;
+      padding: 0 0 3rem;
+      padding-top: 4rem;
+      font: 500 14px "Rubik", sans-serif;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.4);
+    }
+    
+    .button-parrot .parrot {
+      position: absolute;
+      width: 60px;
+      text-align: center;
+      animation: blink 0.8s infinite;
+      color: transparent;
+    }
+    
+    .button-parrot .parrot:before {
+      content: "Click Me!";
+    }
+    
+    .button-parrot .parrot:nth-child(1) {
+      top: -30px;
+      left: -40px;
+      font: 12px/1 "Margarine", sans-serif;
+      transform: rotate(-20deg);
+      animation-duration: 0.5s;
+    }
+    
+    .button-parrot .parrot:nth-child(2) {
+      font: 12px/1 "Margarine", sans-serif;
+      right: -40px;
+      top: -20px;
+      transform: rotate(15deg);
+      animation-duration: 0.3s;
+    }
+    
+    .button-parrot .parrot:nth-child(3) {
+      font: 16px/1 "Margarine", sans-serif;
+      top: -60px;
+      left: 15px;
+      transform: rotate(10deg);
+      animation-duration: 1s;
+    }
+    
+    .button-parrot .parrot:nth-child(4) {
+      font: 18px/1 "Margarine", sans-serif;
+      top: -70px;
+      left: 95px;
+      transform: rotate(2deg);
+      animation-duration: 0.7s;
+    }
+    
+    .button-parrot .parrot:nth-child(5) {
+      font: 14px/1 "Margarine", sans-serif;
+      top: 80px;
+      left: 105px;
+      transform: rotate(-20deg);
+      animation-duration: 0.8s;
+    }
+    
+    .button-parrot .parrot:nth-child(6) {
+      font: 12px/1 "Margarine", sans-serif;
+      top: 80px;
+      left: 5px;
+      transform: rotate(10deg);
+      animation-duration: 1.2s;
+    }
+    
+    .button-parrot button:hover .parrot:before {
+      content: "Do it!";
+      width: 70px;
+    }
+    
+    @keyframes blink {
+      25%, 75% {
+        color: transparent;
+      }
+    
+      40%, 60% {
+        color: #fff;
+      }
+    }
+    </style>
     ';
 
     // JavaScript code
@@ -193,8 +310,8 @@ if ($result) {
             xhr.onload = function () {
                 if (xhr.status === 200) {
                     const response = JSON.parse(xhr.responseText);
-                    document.getElementById("topic").innerHTML = "<h1>" + response.topic + "</h1>";
-                    document.getElementById("t_description").innerHTML = "<h1>" + response.t_description + "</h1>";
+                    document.getElementById("topic").innerHTML = "<h1 class="topic">" + response.topic + "</h1>";
+                    document.getElementById("t_description").innerHTML = "<h1 class="t_description">" + response.t_description + "</h1>";
 
                     // Show the generated items
                     document.getElementById("topic").style.display = "block";

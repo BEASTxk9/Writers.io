@@ -39,11 +39,11 @@ $output .='
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-sm-10">
-                <h2>Group Name: ' . $i->groupname . '</h2>
-                <p>Answers: ' . $i->answer_text . '</p>
+                <h2 id="groupname">Group Name: ' . $i->groupname . '</h2>
+                <p id="answer_text">Answers: ' . $i->answer_text . '</p>
             </div>
             <div id="results-participants-card" class="col-sm-2">
-                <p>Participants: ' . $i->participants . '</p>
+                <p id="participants">Participants: ' . $i->participants . '</p>
             </div>
         </div>
     </div>
