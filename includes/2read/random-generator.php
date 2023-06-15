@@ -93,11 +93,11 @@ if ($result) {
                 </div>
                 <div class="row justify-content-center text-center">
                     <!-- topic -->
-                    <div class="col-sm-8" id="topic" style="display: block;">
+                    <div class="col-sm-8" id="topic" style="display: none;">
                     
                     </div>
                     <!-- describe -->
-                    <div class="col-sm-8" id="t_description" style="display: block;">
+                    <div class="col-sm-8" id="t_description" style="display: none;">
                         
                     </div>
                     <!-- answer -->
